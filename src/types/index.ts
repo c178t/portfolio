@@ -18,6 +18,8 @@ export interface Experience {
     endDate: string | 'Present'
     description: string[]
     technologies: string[]
+    logo?: string
+    companyUrl?: string
 }
 
 export interface Skill {

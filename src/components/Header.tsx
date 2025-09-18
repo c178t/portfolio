@@ -61,7 +61,7 @@ const Header = () => {
             className="text-xl font-bold hover:opacity-70 transition-opacity cursor-pointer"
             style={{ color: 'var(--foreground)' }}
           >
-            Your Name
+            Cian Thomas
           </a>
 
           {/* Navigation Links */}

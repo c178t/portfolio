@@ -5,14 +5,14 @@ const personalInfo: PersonalInfo = {
     name: "CIAN THOMAS",
     title: "Computer Science Student",
     bio: "I am a passionate computer science student at Georgia Tech with hands-on experience in machine learning, computer vision, and full-stack development. Currently working on fire detection systems using YOLO models and preparing for software engineering roles. I enjoy solving complex problems and building innovative solutions that make a real-world impact.",
-    email: "your.email@example.com",
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
+    email: "ciangijothomas@gmail.com",
+    github: "https://github.com/c178t",
+    linkedin: "https://linkedin.com/in/cianthomas",
     location: "Atlanta, GA"
 }
 
 const Hero = () => {
-    return (
+    return ( 
         <section
             id="hero"
             className="min-h-screen flex items-center justify-center section-spacing"
