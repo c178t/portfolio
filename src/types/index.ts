@@ -8,6 +8,7 @@ export interface Project {
     liveUrl?: string
     imageUrl?: string
     featured?: boolean
+    gifUrl?: string
 }
 
 export interface Experience {

@@ -8,7 +8,7 @@ const education: Education = {
     major: "Computer Science",
     graduationDate: "Expected May 2026",
     gpa: "4.0",
-    coursework: ["Data Structures", "Algorithms", "Machine Learning", "Computer Vision"]
+    //coursework: ["Data Structures", "Algorithms", "Machine Learning", "Computer Vision"]
 }
 
 const experiences: Experience[] = [

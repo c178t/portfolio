@@ -4,7 +4,7 @@ import type { PersonalInfo } from '@/types'
 const personalInfo: PersonalInfo = {
     name: "CIAN THOMAS",
     title: "Computer Science Student",
-    bio: "I am a passionate computer science student at Georgia Tech with hands-on experience in machine learning, computer vision, and full-stack development. Currently working on fire detection systems using YOLO models and preparing for software engineering roles. I enjoy solving complex problems and building innovative solutions that make a real-world impact.",
+    bio: "I am a passionate computer science student at Georgia Tech with hands-on experience in full-stack development, computer vision, and machine learning. As a Software Development Engineering Intern at Amazon Web Services, I built and deployed customer-facing features in the AWS Support Console using React, TypeScript, and the AWS SDK, designed scalable APIs with Lambda and API Gateway, and automated infrastructure with CloudFormation and CDK. At Georgia Tech, I lead the Fire Detection Subteam in the XPRIZE Wildfire competition, developing YOLO-powered drone systems for real-time wildfire detection. Beyond AI, I’ve created mobile apps, audio recognition systems, and data-driven solutions that help people make smarter decisions. I thrive on solving complex problems, collaborating with diverse teams, and pushing the limits of technology to create meaningful, scalable solutions.",
     email: "ciangijothomas@gmail.com",
     github: "https://github.com/c178t",
     linkedin: "https://linkedin.com/in/cianthomas",
@@ -12,7 +12,7 @@ const personalInfo: PersonalInfo = {
 }
 
 const Hero = () => {
-    return ( 
+    return (
         <section
             id="hero"
             className="min-h-screen flex items-center justify-center section-spacing"
@@ -21,6 +21,13 @@ const Hero = () => {
             <div className="section-container">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
                     {/* Main heading */}
+                    <div className="flex justify-center items-center">
+                        <img
+                            src="/images/CianProfile.jpeg"
+                            alt="Profile photo of Cian Thomas"
+                            className="w-40 h-40 rounded-full object-cover shadow-lg"
+                        />
+                    </div>
                     <h1
                         className="text-5xl md:text-7xl font-bold leading-tight"
                         style={{ color: 'var(--foreground)' }}
@@ -67,6 +74,18 @@ const Hero = () => {
                             }}
                         >
                             GitHub
+                        </a>
+                        <a
+                            href={personalInfo.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-6 py-3 rounded-full hover:opacity-70 transition-all duration-300"
+                            style={{
+                                color: 'var(--foreground)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                            }}
+                        >
+                            LinkedIn
                         </a>
                     </div>
 
