@@ -10,6 +10,7 @@ export interface Project {
     imageUrls?: string[]
     featured?: boolean
     gifUrl?: string
+    linkedinUrl?: string
 }
 
 export interface Experience {
