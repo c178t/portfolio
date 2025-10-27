@@ -7,6 +7,7 @@ export interface Project {
     githubUrl?: string
     liveUrl?: string
     imageUrl?: string
+    imageUrls?: string[]
     featured?: boolean
     gifUrl?: string
 }

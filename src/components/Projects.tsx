@@ -1,15 +1,15 @@
 "use client"
 
 import type { Project } from '@/types'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-// Updated project data with Georgia Tech Meal Tracker
+// Updated project data with Atmos Clock
 const projects: Project[] = [
   {
     id: "1",
     title: "Fire Detection Subteam",
     description: "Real-time wildfire detection using YOLO models and computer vision. Implemented data augmentation strategies and integrated with Roboflow for model training.",
-    longDescription:"As the leader of the Fire Detection Subteam for Georgia Tech’s XPRIZE Wildfire competition team, I led the development of a comprehensive fire detection system using state-of-the-art YOLOv11 models " + 
+    longDescription:"As the leader of the Fire Detection Subteam for Georgia Tech's XPRIZE Wildfire competition team, I led the development of a comprehensive fire detection system using state-of-the-art YOLOv11 models " + 
     "for real-time wildfire identification with drones. Our system integrates custom data augmentation, advanced false-positive handling, and training optimization through the Roboflow platform. " +
     "The detection results are then used by our path-planning subteam to generate navigation paths, enabling drones to autonomously locate and move toward fires for potential extinguishing. " + 
     "This project highlights my expertise in computer vision, data preprocessing, and model optimization, as well as my ability to lead a technical team, coordinate across subgroups, and deliver scalable, real-world solutions under competition deadlines.",
@@ -23,7 +23,7 @@ const projects: Project[] = [
     description: "Swift application that tracks and projects meal plan balances, predicting when meal swipes will run out for Georgia Tech students with intuitive UI/UX design.",
     longDescription: "At the start of each semester, many Georgia Tech students struggle with deciding how many meal swipes to purchase. " + 
     "Buying too few means running out early, while buying too many often leads to wasted money. To address this, I designed and developed an iOS app using SwiftUI and SwiftData. " + 
-    "The app lets students enter their swipe balance, dining days, and eating frequency, then uses calculation algorithms to predict the exact day they’ll run out of swipes. " + 
+    "The app lets students enter their swipe balance, dining days, and eating frequency, then uses calculation algorithms to predict the exact day they'll run out of swipes. " + 
     "This helps students make smarter financial decisions about their meal plans. In a demo, the app demonstrated potential savings of $553–$1,101 per student. " + 
     "Through this project, I strengthened my skills in mobile development, data modeling, and algorithm design, while also gaining experience in building user-centered tools that translate data into real-world financial impact.",
     technologies: ["Swift", "SwiftUI", "SwiftData", "iOS Development"],
@@ -45,6 +45,25 @@ const projects: Project[] = [
     githubUrl: "https://github.com/c178t/music-recognition-ml",
     imageUrl: "/project-gifs-images/HumTune_results.png",
     featured: false
+  },
+  {
+    id: "4",
+    title: "The Atmos Clock",
+    description: "Weather-responsive digital clock that displays color-coded clothing recommendations based on real-time temperature, humidity, UV, and rain data.",
+    longDescription: "Collaborated with a team of five to develop The Atmos Clock, a Java-based application that revolutionizes how students prepare for the day. " +
+    "The system runs a custom algorithm that analyzes weather API data including temperature, humidity, UV index, and precipitation to determine the perfect clothing to wear for each hour, personalized to the user. " +
+    "I implemented the front-end using JavaFX, creating an intuitive digital clock GUI that displays color-coded recommendations at a glance. " +
+    "I also developed the sorting algorithm in Java to tier weather data and map it to appropriate clothing levels—from heavy winter wear to light summer attire. " +
+    "The color-coded system ranges from magenta (very cold) through blue, cyan, yellow, orange, and red (hot), with an inner circle indicating rain conditions. " +
+    "This project showcases my ability to integrate real-time data processing with user-friendly interface design, while working collaboratively to deliver a practical solution that saves time and adds convenience to daily routines.",
+    technologies: ["Java", "JavaFX", "Weather API", "Algorithm Design", "GUI Development"],
+    featured: false,
+    githubUrl: "https://github.com/c178t/AtmosClock",
+    imageUrls: [
+      "/project-gifs-images/atmos_clock_1.jpg",
+      "/project-gifs-images/atmos_clock_2.jpg",
+      "/project-gifs-images/atmos_clock_3.jpg"
+    ]
   }
 ]
 
@@ -101,20 +120,61 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, isHovered, onHover, onLeave }: ProjectCardProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Auto-slideshow effect when hovered and multiple images exist
+  useEffect(() => {
+    if (isHovered && project.imageUrls && project.imageUrls.length > 1) {
+      // Start slideshow with 2-second intervals
+      intervalRef.current = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => 
+          (prevIndex + 1) % project.imageUrls!.length
+        )
+      }, 3000)
+    } else {
+      // Clear interval when not hovered
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+      // Reset to first image when mouse leaves
+      if (!isHovered) {
+        setCurrentImageIndex(0)
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [isHovered, project.imageUrls])
+
+  // Determine which media to display
+  const getMediaUrl = () => {
+    if (project.imageUrls && project.imageUrls.length > 0) {
+      return project.imageUrls[currentImageIndex]
+    }
+    return project.gifUrl || project.imageUrl
+  }
+
   return (
     <div
-      className={`group relative rounded-lg border p-6 cursor-pointer transition-all duration-[900ms] ease-in-out ${project.featured ? 'ring-2 ring-blue-500/20' : ''
-        } ${isHovered
+      className={`group relative rounded-lg border p-6 cursor-pointer transition-all duration-[900ms] ease-in-out ${
+        project.featured ? 'ring-2 ring-blue-500/20' : ''
+      } ${
+        isHovered
           ? 'shadow-2xl'
           : 'hover:shadow-lg'
-        }`}
+      }`}
       style={{
         backgroundColor: 'var(--background)',
         borderColor: 'rgba(128, 128, 128, 0.2)',
         transformOrigin: 'center',
-        overflow: 'hidden', // Keep this to contain the content
-        flexShrink: 0, // Prevent the card from shrinking below its basis
-        flexBasis: isHovered ? '600px' : '320px', // Animate width
+        overflow: 'hidden',
+        flexShrink: 0,
+        flexBasis: isHovered ? '600px' : '320px',
         minHeight: isHovered ? '350px' : '350px',
       }}
       onMouseEnter={() => onHover(project.id)}
@@ -134,8 +194,9 @@ const ProjectCard = ({ project, isHovered, onHover, onLeave }: ProjectCardProps)
         <div className="w-full">
           {/* Project title */}
           <h3
-            className={`font-semibold mb-3 transition-all duration-[900ms] ease-in-out ${isHovered ? 'text-2xl' : 'text-xl'
-              }`}
+            className={`font-semibold mb-3 transition-all duration-[900ms] ease-in-out ${
+              isHovered ? 'text-2xl' : 'text-xl'
+            }`}
             style={{ color: 'var(--foreground)' }}
           >
             {project.title}
@@ -153,8 +214,9 @@ const ProjectCard = ({ project, isHovered, onHover, onLeave }: ProjectCardProps)
           </p>
 
           {/* Technology tags - fewer shown when not hovered */}
-          <div className={`flex flex-wrap gap-2 transition-all duration-[900ms] ease-in-out ${isHovered ? 'mb-4' : 'mb-6'
-            }`}>
+          <div className={`flex flex-wrap gap-2 transition-all duration-[900ms] ease-in-out ${
+            isHovered ? 'mb-4' : 'mb-6'
+          }`}>
             {(isHovered ? project.technologies : project.technologies.slice(0, 4)).map((tech) => (
               <span
                 key={tech}
@@ -201,29 +263,40 @@ const ProjectCard = ({ project, isHovered, onHover, onLeave }: ProjectCardProps)
           </div>
         </div>
 
-        {/* Media section - animates in and out */}
+        {/* Media section - animates in and out with slideshow support */}
         <div
-          className={`mt-6 overflow-hidden transition-all duration-[700ms] ease-in-out ${isHovered ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'
-            }`}
+          className={`mt-6 overflow-hidden transition-all duration-[700ms] ease-in-out ${
+            isHovered ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'
+          }`}
         >
-          {project.gifUrl ? (
-            <img
-              src={project.gifUrl}
-              alt={`${project.title} demo`}
-              className="w-auto h-auto max-w-[700px] max-h-[700px] object-contain rounded-lg shadow-lg"
-            />
-          ) : project.imageUrl ? (
-            <img
-              src={project.imageUrl}
-              alt={`${project.title} preview`}
-              className="w-auto h-auto max-w-[700px] max-h-[700px] object-contain rounded-lg shadow-lg"
-            />
-          ) : null}
+          {getMediaUrl() && (
+            <div className="relative">
+              <img
+                src={getMediaUrl()}
+                alt={`${project.title} ${project.imageUrls ? `slide ${currentImageIndex + 1}` : 'demo'}`}
+                className="w-auto h-auto max-w-[700px] max-h-[700px] object-contain rounded-lg shadow-lg"
+              />
+              {/* Slideshow indicators */}
+              {project.imageUrls && project.imageUrls.length > 1 && (
+                <div className="flex justify-center gap-2 mt-3">
+                  {project.imageUrls.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentImageIndex 
+                          ? 'bg-blue-500 w-6' 
+                          : 'bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
   )
 }
-
 
 export default Projects
