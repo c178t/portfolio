@@ -89,7 +89,7 @@ const Hero = () => {
                         </a>
                     </div>
 
-                    {/* Scroll indicator */}
+                    {/* Scroll indicator
                     <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
                         <div className="animate-bounce">
                             <svg
@@ -107,7 +107,7 @@ const Hero = () => {
                                 />
                             </svg>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>

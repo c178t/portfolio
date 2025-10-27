@@ -75,7 +75,7 @@ const Projects = () => {
           </p>
 
           {/* Projects container - changed from grid to flex */}
-          <div className="flex flex-col lg:flex-row gap-6 items-start">
+          <div className="flex flex-col lg:flex-row flex-wrap gap-6 items-center justify-center overflow-x-hidden">
             {projects.map((project) => (
               <ProjectCard
                 key={project.id}

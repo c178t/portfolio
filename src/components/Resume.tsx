@@ -36,9 +36,10 @@ const experiences: Experience[] = [
         startDate: "Aug 2024",
         endDate: "Present",
         description: [
-            "Led 5-person fire detection subteam within 40 member Georgia Tech team competing in $11M XPRIZE Wildfire challenge, currently achieving top 15 worldwide ranking out of 300+ teams",
-            "Curated and annotated 350+ thermal infrared and RGB images, establishing ground truth dataset for wildfire detection model training across diverse environmental conditions",
-            "Developed CNN-based wildfire detection system achieving 90% accuracy in detection and severity classification for real-time autonomous drone monitoring"
+            "Led 5-person fire detection subteam in Georgia Tech’s $11M XPRIZE Wildfire effort (40+ members), achieving top 15 of 300+ teams globally.",
+            "Led team in curating and annotating 8000+ RGB/thermal images.",
+            "Trained YOLOv11 (PyTorch) fire detection model (mAP@50 88.6%, P 82.7%, R 87.1%), deployed via OpenCV on Python at 25–30 FPS on NVIDIA Jetson.",
+            "Integrated detection with autonomous path planning, cutting response time by 40%."
         ],
         technologies: ["Python", "CNN", "Computer Vision", "PyTorch", "Thermal Imaging"],
         logo: "/images/intern_companies/georgia_tech_vip.png",
